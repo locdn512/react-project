@@ -6,13 +6,8 @@ import Header from './components/Header';
 import Benefit from './components/Benefit';
 import Footer from './components/Footer';
 
-
-
 function App() {
-  // const name = "Đặng Nguyên Lộc";
-
   return (
-
     <div className="App">
       <Header />
       <HomePage />
