@@ -10,17 +10,17 @@ class ProductList extends PureComponent {
                 <div className="col">
                     <div className="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
                         {
-                            productList.data.map(
+                            productList.map(
                                 product => {
                                     return (
-                                        <div className="product-item men">
+                                        <div className="product-item men" key={product.id}>
                                             <div className="product product_filter">
                                                 <div className="product_image">
                                                     <img src={product.images[0]} alt="" />
                                                 </div>
                                                 <div className="favorite"></div>
                                                 <div className="product_info">
-                                                    <h6 className="product_name"><a href="single.html">{product.name}</a></h6>
+                                                    <h6 className="product_name"><a href="">{product.name}</a></h6>
                                                     <div className="product_price">{product.salePrice}đ</div>
                                                 </div>
                                             </div>

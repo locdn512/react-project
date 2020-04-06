@@ -3,8 +3,15 @@ import PropTypes from 'prop-types';
 import './CategoryMenu.css';
 
 class CategoryMenu extends PureComponent {
+    handleCategoryClick = (category) => {
+        const { onSelectedCategoryChange } = this.props;
+        if (onSelectedCategoryChange) {
+            onSelectedCategoryChange(category);
+        }
+    };
+
     render() {
-        const { activeCategoryMenu, categoryMenu } = this.props;
+        const { selectedCategoryId, categoryList } = this.props;
         return (
             <div className="row align-items-center">
                 <div className="col text-center">
@@ -15,14 +22,15 @@ class CategoryMenu extends PureComponent {
                             <li className="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".accessories">accessories</li>
                             <li className="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">men's</li> */}
                             {
-                                categoryMenu.map(
+                                categoryList.map(
                                     category => {
-                                        const isActive = category.id === activeCategoryMenu;
-                                        const classNameli = 'grid_sorting_button button d-flex flex-column justify-content-center align-items-center ';
+                                        const isActive = category.id === selectedCategoryId;
+                                        const classNameli = 'grid_sorting_button button d-flex flex-column justify-content-center align-items-center';
                                         return (
                                             <li
-                                                className={isActive ? classNameli + 'active is-checked' : classNameli}
-                                                data-filter={'.' + category.searchTerm}
+                                                key={category.id}
+                                                className={isActive ? classNameli + ' active is-checked' : classNameli}
+                                                onClick={() => this.handleCategoryClick(category)}
                                             >
                                                 {category.name}
                                             </li>
@@ -40,12 +48,14 @@ class CategoryMenu extends PureComponent {
 }
 
 CategoryMenu.propTypes = {
-    activeCategoryMenu: PropTypes.string,
-    categoryMenu: PropTypes.array,
+    selectedCategoryId: PropTypes.string,
+    categoryList: PropTypes.array,
+    onSelectedCategoryChange: PropTypes.func,
 };
 CategoryMenu.defaultProps = {
-    activeCategoryMenu: '',
-    categoryMenu: [],
+    selectedCategoryId: '',
+    categoryList: [],
+    onSelectedCategoryChange: null,
 }
 
 export default CategoryMenu;
